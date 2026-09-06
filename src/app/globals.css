@@ -1,0 +1,300 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+ * 蒙古文字体加载
+ * ============================================ */
+
+@font-face {
+  font-family: 'NotoSansMongolian';
+  src: url('/fonts/NotoSansMongolian-Regular.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+1800-18FF;
+}
+
+/* ============================================
+ * 蒙古文核心样式
+ * ============================================ */
+
+/* 通用蒙古文属性 */
+[lang="mn-Mong"],
+.lang-mongolian {
+  font-family: 'NotoSansMongolian', 'Noto Sans Mongolian', sans-serif;
+  font-feature-settings: 'ccmp' 1, 'liga' 1, 'clig' 1, 'calt' 1, 'locl' 1, 'ss01' 1, 'ss02' 1, 'rlig' 1;
+  font-variant-ligatures: contextual;
+  font-language-override: 'MON';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  unicode-bidi: isolate;
+}
+
+/* 蒙古文竖排模式 */
+.mongolian-vertical,
+.mongolian-text-vertical {
+  font-family: 'NotoSansMongolian', 'Noto Sans Mongolian', 'Mongolian Baiti', 'Menk Qagan Higitte', 'Menksoft Qagan', 'MongolianScript', 'DaicingFont', 'Daicing Sans', 'Code2000', 'Segoe UI Symbol', 'Apple Symbols', sans-serif;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  -moz-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  text-orientation: mixed;
+  -webkit-text-orientation: mixed;
+  unicode-bidi: isolate;
+  -webkit-unicode-bidi: plaintext;
+  direction: ltr;
+  font-feature-settings: 'ccmp' 1, 'liga' 1, 'clig' 1, 'calt' 1, 'locl' 1, 'ss01' 1, 'ss02' 1, 'rlig' 1, 'rclt' 1, 'rclr' 1;
+  font-variant-ligatures: common-ligatures contextual;
+  -webkit-font-variant-ligatures: contextual;
+  font-language-override: 'MON';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0;
+  word-spacing: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  padding-right: 0.5em;
+  margin-right: 0.25em;
+}
+
+/* 蒙古文横排模式 */
+.mongolian-horizontal,
+.mongolian-text-horizontal {
+  font-family: 'NotoSansMongolian', 'Noto Sans Mongolian', 'Mongolian Baiti', sans-serif;
+  writing-mode: horizontal-tb;
+  -webkit-writing-mode: horizontal-tb;
+  text-orientation: upright;
+  -webkit-text-orientation: upright;
+  font-feature-settings: 'ccmp' 1, 'liga' 1, 'calt' 1, 'locl' 1, 'ss01' 1;
+  font-variant-ligatures: contextual;
+  font-language-override: 'MON';
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 蒙古文单词展示 */
+.mongolian-word-display,
+.mongolian-word {
+  font-family: 'NotoSansMongolian', 'Noto Sans Mongolian', 'Mongolian Baiti', sans-serif;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+  letter-spacing: 0;
+  line-height: 1.2;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ccmp' 1, 'liga' 1, 'clig' 1, 'calt' 1, 'locl' 1, 'ss01' 1, 'ss02' 1, 'rlig' 1;
+  font-variant-ligatures: contextual;
+  font-language-override: 'MON';
+}
+
+/* SVG 容器 */
+.mongolian-svg-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.mongolian-svg-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mongolian-svg-text {
+  font-family: 'NotoSansMongolian', 'Mongolian Baiti', sans-serif;
+  font-feature-settings: 'ccmp' 1, 'liga' 1, 'clig' 1, 'calt' 1, 'ss01' 1, 'ss02' 1;
+  font-variant-ligatures: contextual;
+}
+
+/* Tailwind 兼容 */
+.text-mongolian,
+.text-mongolian-vertical {
+  font-family: 'NotoSansMongolian', 'Noto Sans Mongolian', sans-serif;
+}
+
+.text-lg.mongolian-vertical,
+.text-xl.mongolian-vertical,
+.text-2xl.mongolian-vertical,
+.text-3xl.mongolian-vertical,
+.text-4xl.mongolian-vertical,
+.text-5xl.mongolian-vertical {
+  font-family: 'NotoSansMongolian', sans-serif;
+  font-feature-settings: 'ccmp' 1, 'liga' 1, 'calt' 1, 'ss01' 1;
+}
+
+/* 字体加载状态 */
+.font-loading {
+  opacity: 0.3;
+}
+
+.font-ready {
+  opacity: 1;
+}
+
+.mongolian-loading-placeholder {
+  font-family: 'NotoSansMongolian', sans-serif;
+  visibility: hidden;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: #10b981;
+  --color-chart-2: #3b82f6;
+  --color-chart-3: #f59e0b;
+  --color-chart-4: #ef4444;
+  --color-chart-5: #8b5cf6;
+  --color-sidebar-background: #ffffff;
+  --color-sidebar-foreground: #0f172a;
+  --color-sidebar-primary: #10b981;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #d1fae5;
+  --color-sidebar-accent-foreground: #065f46;
+  --color-sidebar-border: #e2e8f0;
+  --color-sidebar-ring: #10b981;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xs: calc(var(--radius) - 6px);
+  --radius-s: calc(var(--radius) - 5px);
+  --radius-m: calc(var(--radius) - 2px);
+  --radius-l: calc(var(--radius) + 2px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #d1fae5;
+  --accent-foreground: #065f46;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #10b981;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+  --popover: #1e293b;
+  --popover-foreground: #f1f5f9;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #064e3b;
+  --accent-foreground: #d1fae5;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #334155;
+  --input: #334155;
+  --ring: #10b981;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+/* 隐藏滚动条（用于横向滑动容器） */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome/Safari/Opera */
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* ============================================
+ * 侧边栏/Header 装饰动画（哈达丝带、火焰脉冲等）
+ * ============================================ */
+@keyframes khataShine {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes steppe-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(166, 75, 42, 0.4);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgba(166, 75, 42, 0);
+  }
+}
+
+.animate-steppe-pulse {
+  animation: steppe-pulse 2s ease-in-out infinite;
+}
