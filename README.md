@@ -1,28 +1,40 @@
-# 沉浸式学蒙古语 / Immersive Mongolian
+# Immersive Mongolian
 
 [![Quality checks](https://github.com/sangnuo0121-sys/immersive-mongolian/actions/workflows/ci.yml/badge.svg)](https://github.com/sangnuo0121-sys/immersive-mongolian/actions/workflows/ci.yml)
 
-一个面向蒙古语学习者的双语全栈应用，涵盖字母、主题词库、每日学习、发音贡献、文化内容、排行榜与学习进度。
+Immersive Mongolian is a bilingual, full-stack learning platform for traditional Mongolian. It brings together alphabet practice, themed vocabulary, daily learning, pronunciation contributions, cultural content, leaderboards, and progress tracking in one responsive application.
 
-## 主要功能
+## Why This Project
 
-- 中英双语界面和传统蒙古文 SVG 渲染
-- 主题词库、每日任务、复习与 XP 等级系统
-- 社区发音上传、投票和管理员审核
-- 蒙古文化文章、口述档案、智慧语录与特别鸣谢
-- Supabase 邮箱登录、用户资料和管理员后台
-- 响应式桌面侧栏与移动端底部导航
+Traditional Mongolian presents distinctive challenges for digital learning, including vertical writing, font support, pronunciation resources, and limited interactive content. This project explores how modern web technologies can make the language more accessible while creating space for community participation and cultural storytelling.
 
-## 技术栈
+## Features
 
-- Next.js 16、React 19、TypeScript
-- Tailwind CSS 4、shadcn/ui、Radix UI
-- Supabase Auth、PostgreSQL、Storage 和 RLS
+- Chinese and English interfaces with traditional Mongolian rendered as SVG
+- Themed vocabulary collections, daily tasks, review activities, and an XP-based level system
+- Community pronunciation uploads, voting, and administrator review
+- Cultural articles, oral archives, wisdom quotes, and acknowledgements
+- Email authentication, user profiles, and an administrator dashboard
+- Responsive desktop sidebar and mobile bottom navigation
+- Role- and ownership-based permissions enforced by both API checks and Supabase RLS
+
+## Tech Stack
+
+- Next.js 16, React 19, and TypeScript
+- Tailwind CSS 4, shadcn/ui, and Radix UI
+- Supabase Auth, PostgreSQL, Storage, and Row Level Security
 - pnpm 11
+- GitHub Actions for automated validation and dependency auditing
 
-## 本地运行
+## Getting Started
 
-要求：Node.js 20 或更高版本、pnpm 11。
+### Prerequisites
+
+- Node.js 20 or later
+- pnpm 11
+- A Supabase project
+
+### Installation
 
 ```bash
 pnpm install
@@ -30,68 +42,68 @@ cp .env.example .env.local
 pnpm dev
 ```
 
-打开 [http://localhost:5000](http://localhost:5000)。
+Open [http://localhost:5000](http://localhost:5000).
 
-## 环境变量
+## Environment Variables
 
-在 `.env.local` 或部署平台中配置：
+Configure these values in `.env.local` or in your deployment platform:
 
-| 变量 | 用途 | 是否可公开 |
+| Variable | Purpose | Safe to expose publicly? |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase 项目地址 | 是 |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase 匿名公钥 | 是 |
-| `SUPABASE_SERVICE_ROLE_KEY` | 服务端管理操作 | 否 |
-| `BOOTSTRAP_ADMIN_EMAIL` | 首位管理员邮箱 | 否 |
-| `BOOTSTRAP_ADMIN_PASSWORD` | 首位管理员初始密码 | 否 |
-| `FEEDBACK_RESOLVE_CODE` | 旧版反馈维护密码，可选 | 否 |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Yes |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous public key | Yes |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-side administrative operations | No |
+| `BOOTSTRAP_ADMIN_EMAIL` | Initial administrator email | No |
+| `BOOTSTRAP_ADMIN_PASSWORD` | Initial administrator password | No |
+| `FEEDBACK_RESOLVE_CODE` | Optional legacy feedback maintenance code | No |
 
-不要创建名为 `NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY` 的变量。带 `NEXT_PUBLIC_` 前缀的值可能被打包到浏览器端。
+Never create a variable named `NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY`. Any value prefixed with `NEXT_PUBLIC_` may be included in the browser bundle.
 
-## Supabase 初始化
+## Supabase Setup
 
-1. 在 Supabase 创建项目并填写环境变量。
-2. 按需创建 `word-audio`、`acknowledgements-images`、`culture-articles-images` 和 `oral-archives-audio` buckets。
-3. 在 SQL Editor 中执行数据库结构脚本。
-4. 依次执行：
+1. Create a Supabase project and configure the environment variables.
+2. Create the `word-audio`, `acknowledgements-images`, `culture-articles-images`, and `oral-archives-audio` storage buckets as needed.
+3. Run the database schema in the Supabase SQL Editor.
+4. Apply the migrations in order:
 
 ```text
 supabase/migrations/0001_auth_profiles_xp_levels.sql
 supabase/migrations/0002_secure_content_rls.sql
 ```
 
-第二个迁移会关闭旧的公开写入权限：公共用户只能读取；登录用户只能维护自己的贡献；分类、公告、等级等系统数据仅管理员可修改。
+The second migration replaces legacy public-write policies. Public users receive read-only access, authenticated contributors can maintain their own content, and administrative data can be changed only by administrators.
 
-更完整的手工配置说明见 `SUPABASE_SETUP.md`。
+See [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md) for the complete manual setup guide.
 
-## 常用命令
+## Available Commands
 
 ```bash
-pnpm dev          # 启动开发服务器（端口 5000）
-pnpm validate     # TypeScript + ESLint 阻断项检查
-pnpm build        # 生产构建
-pnpm start        # 启动已构建的服务
+pnpm dev          # Start the development server on port 5000
+pnpm validate     # Run TypeScript and blocking ESLint checks
+pnpm build        # Create a production build
+pnpm start        # Start the production server
 ```
 
-## 安全说明
+## Security
 
-- `.env*`、构建目录、依赖目录和本地素材已通过 `.gitignore` 排除。
-- 普通 Supabase 客户端始终使用 anon key；service role 仅用于明确的服务端管理操作。
-- 新增、修改和删除接口会在服务端校验登录状态、所有者或管理员角色。
-- 部署已有数据库时，也必须执行最新 RLS 迁移；只更新应用代码不会自动改变数据库策略。
+- Environment files, dependencies, build output, and private local materials are excluded through `.gitignore`.
+- Standard Supabase clients always use the anonymous key; the service-role key is limited to explicit server-side administrative operations.
+- Create, update, and delete endpoints verify authentication, ownership, or administrator status on the server.
+- Existing deployments must apply the latest RLS migration because updating application code does not automatically update database policies.
 
-## 项目结构
+## Project Structure
 
 ```text
-src/app/                 页面与 API 路由
-src/components/          业务和 UI 组件
-src/context/             全局学习状态
-src/lib/                 认证、渲染和业务工具
-src/storage/database/    Supabase 与数据结构
-supabase/migrations/     数据库迁移
-public/                  字体、图片和预渲染蒙古文资源
-scripts/                 构建与 SVG 生成脚本
+src/app/                 Pages and API routes
+src/components/          Product and UI components
+src/context/             Global learning state
+src/lib/                 Authentication, rendering, and business utilities
+src/storage/database/    Supabase client and database schema
+supabase/migrations/     Database migrations
+public/                  Fonts, images, and pre-rendered Mongolian assets
+scripts/                 Build and SVG-generation scripts
 ```
 
-## 开源许可
+## License
 
-本项目采用 [MIT License](LICENSE)。
+This project is available under the [MIT License](LICENSE).
