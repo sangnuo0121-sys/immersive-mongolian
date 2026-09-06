@@ -2,6 +2,8 @@
 
 [![Quality checks](https://github.com/sangnuo0121-sys/immersive-mongolian/actions/workflows/ci.yml/badge.svg)](https://github.com/sangnuo0121-sys/immersive-mongolian/actions/workflows/ci.yml)
 
+**[Live Demo](https://immersivemongolian.coze.site/)** · [Source Code](https://github.com/sangnuo0121-sys/immersive-mongolian) · [Report an Issue](https://github.com/sangnuo0121-sys/immersive-mongolian/issues)
+
 Immersive Mongolian is a bilingual, full-stack learning platform for traditional Mongolian. It brings together alphabet practice, themed vocabulary, daily learning, pronunciation contributions, cultural content, leaderboards, and progress tracking in one responsive application.
 
 ## Why This Project
