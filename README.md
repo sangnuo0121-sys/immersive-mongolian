@@ -32,7 +32,7 @@ Traditional Mongolian presents distinctive challenges for digital learning, incl
 
 ### Prerequisites
 
-- Node.js 20 or later
+- Node.js 24 or later
 - pnpm 11
 - A Supabase project
 
